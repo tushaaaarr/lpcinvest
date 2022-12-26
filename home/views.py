@@ -297,14 +297,14 @@ def property_view(request,id):
     elif property.type == "1":
         property.type = 'Apartment'
 
-    if request.is_ajax(): 
-        properties_list = SendPropertiesToMap(request,property)
-        return JsonResponse({'data':properties_list}) 
+    # if request.is_ajax(): 
+    #     properties_list = SendPropertiesToMap(request,property)
+    #     return JsonResponse({'data':properties_list}) 
 
     location_coord = json.dumps([{'latitude':property.lat,"longitude":property.lon}])
-
-    return render(request,'user/property/properties-details.html',{'property':property,'prop_images':prop_images,"furniture_data":furniture_data,
-    "similar_properties":similar_properties,"feature_data":feature_data,"Calculated_data":Calculated_data,
+    images_gallery = PropertyImage.objects.filter(property = 15)
+    return render(request,'user/property/properties-details1.html',{'property':property,'prop_images':prop_images,"furniture_data":furniture_data,
+    "similar_properties":similar_properties,"feature_data":feature_data,"Calculated_data":Calculated_data,"images_gallery":images_gallery,  
     "page_data":page_data,"location_coord":location_coord})
 
 
@@ -396,8 +396,8 @@ def property_sorting(query,properties):
 def search(request):
     if request.is_ajax(): 
         query = request.GET.get('term', '')
-        search_title = Properties.objects.filter(title__icontains=query)
-        search_type= Properties.objects.filter(type__in = get_containing(PROP_TYPE_CHOICES,query))
+        search_title = Properties.objects.filter(title__icontains=query.lower())
+        search_type= Properties.objects.filter(type__in = get_containing(PROP_TYPE_CHOICES,query.lower()))
 
         results = []
         for type_name in (search_type): 
@@ -409,11 +409,13 @@ def search(request):
                 results.append(title.title) 
 
         data = json.dumps(results)
+
         return HttpResponse(data)
+
     properties_data = {}
     query = request.GET.get('query', "") 
     properties_status = request.GET.getlist('properties_status', "") 
-    properties = Properties.objects.filter(Q(title__contains=query) | Q(type__in=get_containing(PROP_TYPE_CHOICES,query)))
+    properties = Properties.objects.filter(Q(title__contains=query) | Q(type__in=get_containing(PROP_TYPE_CHOICES,query.lower())))
 
     if not 'all' in properties_status:
         dt = PropertyStatusMapper.objects.all()

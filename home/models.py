@@ -53,7 +53,8 @@ class Properties(models.Model):
     title = models.CharField(max_length=30)
     type = models.CharField(max_length=10,choices=PROP_TYPE_CHOICES)
     price = models.IntegerField(default=0)
-    area = models.IntegerField(default=0, blank=True)
+    yields = models.CharField(blank=True,max_length=40)
+    area = models.CharField(blank=True,max_length=40)
 
     # Location
     adddress = models.CharField(max_length=50)
@@ -257,6 +258,24 @@ def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
     except:
         pass
+
+
+class TeamMembers(models.Model):
+    name = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    role = models.CharField(max_length=30, blank=True)
+    desc = models.TextField(default="")
+    mobile = models.CharField(max_length=15, blank=True)
+    email = models.CharField(max_length=20, blank=True)
+    address = models.CharField(max_length=15, blank=True)
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.name = self.name.capitalize()
+        return super(TeamMembers, self).save(*args, **kwargs)
+
+
+
 
 
 class CityGuide(models.Model):

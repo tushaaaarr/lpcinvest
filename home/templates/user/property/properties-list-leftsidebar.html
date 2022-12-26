@@ -223,7 +223,7 @@
             {%endfor%}
           </div>
 
-          <!-- Our agent sidebar start -->
+          {% comment %} <!-- Our agent sidebar start -->
           <div class="our-agent-sidebar">
             <div class="p-20">
               <h3 class="sidebar-title">Our Agent</h3>
@@ -344,7 +344,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> {% endcomment %}
         </div>
       </div>
 
@@ -398,7 +398,7 @@
                 <div class="property-inner">
                   <div class="property-info">
                     <h4 class="properties-name">
-                      <a href="/properties/{{property.id}}">{{property.title}}</a>
+                      <a href="/properties/{{property.id}}">{{property.title}}{{property.status}}</a>
                     </h4>
                     <p class="location">
                       <a href="/properties/{{property.id}}">

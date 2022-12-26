@@ -76,7 +76,20 @@
     color:#ffffff !important;
     font-weight:bolder;
 }
+.navbar-brand i {
+    color:#ffffff !important;
+    font-weight:bolder;
+    size:20px;
+}
+.navbar-brand i{
+    display:none;
+}
 
+@media screen and (max-width: 815px) {
+    .navbar-brand i{
+    display:block!important;
+    }
+}
 
     </style>
     {% block css %}  {% endblock css %}
@@ -87,7 +100,6 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PT PV7L" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <div class="page_loader"></div>
 
     <!-- Top header 3 start -->
     <div class="top-header-3 d-none d-lg-block" id="top-header-3">
@@ -140,13 +152,25 @@
     <!-- Main header start -->
     <header class="main-header sticky-header main-header-5" id="main-header-5">
         <div class="container">
-            <div class="header-inner">
-                <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="header-inner" >
+                <nav class="navbar navbar-expand-lg navbar-light" style="background-color: ;">
                     <a class="navbar-brand logos mr-auto" href="/">
                         <img src="{% static 'img/logo/logo2.png' %}" alt="logo" class="logo-photo"
                         style="height:30px;">
                     </a>
-                    <button class="navbar-toggler" id="drawer" type="button">
+                    <div class="navbar-brand ml-auto">
+                        <a href="https://api.whatsapp.com/send?phone=1617133883&text=Hi%2C I enquired through the LPC-Invest website and am interested in your project" target="_blank">
+                        <i class="bi bi-whatsapp"></i>  
+                    </a>
+                </div>
+
+                    <div class="navbar-brand">
+                        <a href="https://calendly.com/tusharspatil808/30min?month=2022-12" target="_blank">
+                        <i class="bi bi-calendar3"></i></a>
+                        </div>
+
+                   
+                        <button class="navbar-toggler" id="drawer" type="button">
                         <span class="fa fa-bars"></span>      
                     </button>
                     <div class="navbar-collapse collapse w-100" id="navbar">
